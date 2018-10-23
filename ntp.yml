@@ -1,0 +1,7 @@
+---
+
+- hosts: ntp
+  remote_user: vagrant
+  become: yes
+  roles:
+    - ntp

@@ -1,0 +1,7 @@
+---
+
+- name: Restart ntp
+  systemd:
+    name: "{{ ntp_daemon }}"
+    state: restarted
+    enabled: yes

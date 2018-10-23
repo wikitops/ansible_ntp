@@ -1,0 +1,39 @@
+---
+
+- name: NTP | Include OS-specific variables
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: NTP | Installation
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - ntp
+    - tzdata
+  notify: Restart ntp
+
+- name: NTP | Manage RedHat environment
+  template:
+    src: etc/sysconfig/clock.j2
+    dest: /etc/sysconfig/clock
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == 'RedHat' and ansible_distribution_version.split('.')[0] == '6'
+
+- name: NTP | Manage timezone
+  timezone:
+    name: "{{ ntp_timezone }}"
+  notify: Restart ntp
+
+- name: NTP | Ensure NTP start once
+  meta: flush_handlers
+
+- name: NTP | Configuration
+  template:
+    src: etc/ntp.conf.j2
+    dest: /etc/ntp.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: Restart ntp

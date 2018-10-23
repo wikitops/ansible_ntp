@@ -1,0 +1,8 @@
+---
+
+###
+# NTP
+###
+
+# NTP Daemon name
+ntp_daemon: ntp

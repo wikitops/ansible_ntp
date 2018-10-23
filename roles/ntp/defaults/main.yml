@@ -1,0 +1,23 @@
+---
+
+###
+# NTP
+###
+
+# Timezone
+ntp_timezone: Etc/UTC
+
+# Servers
+ntp_servers:
+  - time1.google.com
+  - time2.google.com
+  - time3.google.com
+  - time4.google.com
+
+# Restriction
+ntp_restrict:
+  - "127.0.0.1"
+  - "::1"
+
+# NTP driftfile
+ntp_driftfile: /var/lib/ntp/drift
